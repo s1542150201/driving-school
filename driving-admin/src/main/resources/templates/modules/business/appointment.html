@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>预约管理</title>
+		<#include "/header.html">
+    <link rel="stylesheet" href="${request.contextPath}/statics/libs/datapicker/bootstrap-datetimepicker.css">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <#if shiro.hasPermission("business:appointment:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            </#if>
+            <#if shiro.hasPermission("business:appointment:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+            </#if>
+            <#if shiro.hasPermission("business:appointment:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+            <#if shiro.hasPermission("business:appointment:confirm")>
+            <a class="btn btn-primary" @click="confirm"><i class="fa fa-check"></i>&nbsp;确认</a>
+            </#if>
+            <#if shiro.hasPermission("business:appointment:book")>
+            <a class="btn btn-primary" @click="book"><i class="fa fa-car"></i>&nbsp;预约</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">教练</div>
+                <div class="col-sm-10">
+                    <select class="form-control" v-model="appointment.coachId">
+                        <option value="">--请选择教练--</option>
+                        <option v-for="(coach, index) in coachList" :key="index" v-text="coach.realName" :value="coach.userId"></option>
+                    </select>
+                </div>
+            </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">车辆</div>
+                        <div class="col-sm-10">
+                            <select class="form-control" v-model="appointment.carId">
+                                <option value="">--请选择车辆--</option>
+                                <option v-for="(car, index) in carList" :key="index" v-text="car.number" :value="car.id"></option>
+                            </select>
+                        </div>
+                    </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">日期</div>
+                <div class="col-sm-10">
+                    <input type="text" id="day" class="form-control" v-model="appointment.day" placeholder="日期" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">时间段</div>
+                <label class="radio-inline">
+                    <input type="radio" name="period" value="0" v-model="appointment.period"/> 上午
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="period" value="1" v-model="appointment.period"/> 下午
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">学员姓名</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="appointment.studentName" readonly="readonly" placeholder="学员姓名"/>
+                </div>
+            </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/business/appointment.js?_${.now?long}"></script>
+<script src="${request.contextPath}/statics/libs/datapicker/bootstrap-datetimepicker.js"></script>
+</body>
+</html>

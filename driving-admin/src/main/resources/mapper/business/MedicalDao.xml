@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.driving.modules.business.dao.MedicalDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.driving.modules.business.entity.MedicalEntity" id="medicalMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
+
+</mapper>

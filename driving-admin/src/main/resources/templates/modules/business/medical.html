@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>体检信息</title>
+		<#include "/header.html">
+    <script src="${request.contextPath}/statics/libs/ajaxupload.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <#if shiro.hasPermission("business:medical:upload")>
+            <a class="btn btn-primary" id="upload"><i class="fa fa-upload"></i>&nbsp;上传</a>
+            </#if>
+            <#if shiro.hasPermission("business:medical:down")>
+            <a class="btn btn-primary" @click="down"><i class="fa fa-download"></i>&nbsp;下载</a>
+            </#if>
+            <#if shiro.hasPermission("business:medical:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            </#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/business/medical.js?_${.now?long}"></script>
+</body>
+</html>
